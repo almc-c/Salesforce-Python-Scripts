@@ -6,7 +6,7 @@ various scripts for interacting with salesforce from python
 This python script is designed to export in bulk the "files" saved against records, file libraries or your personal files.  
 In Salesforce, these are stored in the ContentVersion object from the Salesforce org.  https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_contentversion.htm
 The provided script is designed to fetch files by Title only.
-The running user should have the View All Files permission assigned https://help.salesforce.com/s/articleView?id=000381258&type=1
+The running user should have the Query All Files permission assigned https://help.salesforce.com/s/articleView?id=000381258&type=1
 Set the authentication in the .env file and run it from the command line.
 Files will be downloaded and placed into a salesforce_downloads folder in the working directory.
 

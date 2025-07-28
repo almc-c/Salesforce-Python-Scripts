@@ -54,7 +54,7 @@ def download_salesforce_files(username, password, security_token, domain, downlo
 
         # 2. Query for Files (ContentVersion objects)
         # TODO - modify where clause to be passed as a string param or .env
-        query = f"SELECT Id, Title, FileExtension, ContentDocumentId, VersionData FROM ContentVersion WHERE title like 'TestFile%'"
+        query = f"SELECT Id, Title, Checksum, FileExtension, ContentDocumentId, VersionData, FirstPublishedLocationId, CreatedDate FROM ContentVersion WHERE title like 'TestFile%'"
         print(f"Executing SOQL query: {query}")
         result = sf.query(query)
         records = result['records']
@@ -73,6 +73,7 @@ def download_salesforce_files(username, password, security_token, domain, downlo
             # Construct the correct VersionData API URL
             content_url = sf.base_url + f"sobjects/ContentVersion/{file_id}/VersionData"
             
+            # If files share the same filename, this will overwrite.  Consider adding id or Checksum to the local filename, if possible.
             local_filename = f"{file_title}.{file_extension}"
             local_filepath = os.path.join(download_dir, local_filename)
 
@@ -82,6 +83,7 @@ def download_salesforce_files(username, password, security_token, domain, downlo
                 response = requests.get(content_url, headers=sf.headers, stream=True)
                 response.raise_for_status() # Raise an HTTPError for bad responses (4xx or 5xx)
 
+                # file will auto-close when completed. May overwrite file by same name.
                 with open(local_filepath, 'wb') as f:
                     for chunk in response.iter_content(chunk_size=8192):
                         f.write(chunk)
@@ -92,8 +94,8 @@ def download_salesforce_files(username, password, security_token, domain, downlo
             except IOError as io_err:
                 print(f"Error saving file {local_filename}: {io_err}")
 
-            except Exception as e:
-                print(f"An error occurred: {e}")
+    except Exception as e:
+        print(f"An error occurred: {e}")
 
 # --- Run the script ---
 if __name__ == "__main__":

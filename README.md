@@ -16,3 +16,9 @@ Ideas for future improvement:
 * Use of the MD5 Checksum to verify file transfer integrity.
 * Specify the WHERE clause in .env file or through param query string.
 * Allowing to define the LinkedEntity or ContentWorkspace (aka Library) from where the files should be retrieved.  May or may not be used in conjunction with file title.
+
+To install: It is recommended to use a virtual environment then git clone into your local directly.  
+To install dependencies: python -m pip install -r requirements.txt 
+To run: 
+* Update the .env-sample as .env with your specific environment variables for the target org.  
+* Update the WHERE clause for the specific files needed.  A subquery such as ```WHERE FirstPublishedLocationId in (SELECT id FROM Account)``` will also work for files loaded against a record. 

@@ -93,6 +93,8 @@ def download_salesforce_files(username, password, security_token, domain, downlo
                 print(f"Error downloading {file_title}: {req_err}")
             except IOError as io_err:
                 print(f"Error saving file {local_filename}: {io_err}")
+            except Exception as e:
+                print(f"Error - Unexpected error with file {file_title} {e}")
 
     except Exception as e:
         print(f"An error occurred: {e}")

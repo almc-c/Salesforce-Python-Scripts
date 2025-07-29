@@ -1,9 +1,9 @@
 # Salesforce-Python-Scripts
-various scripts for interacting with salesforce from python
+various scripts for interacting with salesforce from Python
 
 # filesExtractRunner.py
 
-This python script is designed to export in bulk the "files" saved against records, file libraries or your personal files.  
+This Python script is designed to export in bulk the "files" saved against records, file libraries or your personal files.  
 In Salesforce, these are stored in the ContentVersion object from the Salesforce org.  https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_contentversion.htm
 The provided script is designed to fetch files by Title only.
 The running user should have the Query All Files permission assigned https://help.salesforce.com/s/articleView?id=000381258&type=1
@@ -17,8 +17,9 @@ Ideas for future improvement:
 * Specify the WHERE clause in .env file or through param query string.
 * Allowing to define the LinkedEntity or ContentWorkspace (aka Library) from where the files should be retrieved.  May or may not be used in conjunction with file title.
 
-To install: It is recommended to use a virtual environment then git clone into your local directly.  
-To install dependencies: python -m pip install -r requirements.txt 
+**Install & Run:**  
+To install: It is recommended to use a virtual environment then git clone into your local directory.  
+To install dependencies: python -m pip install -r requirements.txt  
 To run: 
 * Update the .env-sample as .env with your specific environment variables for the target org.  
 * Update the WHERE clause for the specific files needed.  A subquery such as ```WHERE FirstPublishedLocationId in (SELECT id FROM Account)``` will also work for files loaded against a record. 
